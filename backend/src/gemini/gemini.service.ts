@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings } from '@langchain/google-genai';
+import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { SystemMessage, HumanMessage, AIMessage } from '@langchain/core/messages';
-import { TaskType } from '@google/generative-ai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 @Injectable()
 export class GeminiService {
-  private embeddings: GoogleGenerativeAIEmbeddings;
+  private googleAI: GoogleGenerativeAI;
   private chatModel: ChatGoogleGenerativeAI;
 
   constructor(private configService: ConfigService) {
@@ -14,15 +14,11 @@ export class GeminiService {
     const apiKey = this.configService.get<string>('GEMINI_API_KEY') || 
                    this.configService.get<string>('GOOGLE_API_KEY') || '';
 
-    this.embeddings = new GoogleGenerativeAIEmbeddings({
-      apiKey: apiKey,
-      modelName: 'text-embedding-004',
-      taskType: TaskType.RETRIEVAL_DOCUMENT,
-    });
+    this.googleAI = new GoogleGenerativeAI(apiKey);
 
     this.chatModel = new ChatGoogleGenerativeAI({
       apiKey: apiKey,
-      model: 'gemini-1.5-flash',
+      model: 'gemini-flash-latest',
       temperature: 0.2,
     });
   }
@@ -31,7 +27,12 @@ export class GeminiService {
    * Gera o vetor de embedding (768 dimensões) para um texto dado.
    */
   async getEmbedding(text: string): Promise<number[]> {
-    return this.embeddings.embedQuery(text);
+    const model = this.googleAI.getGenerativeModel({ model: 'gemini-embedding-001' });
+    const result = await model.embedContent({
+      content: { role: 'user', parts: [{ text: text.replace(/\n/g, ' ') }] },
+      outputDimensionality: 768,
+    } as any);
+    return result.embedding.values;
   }
 
   /**
