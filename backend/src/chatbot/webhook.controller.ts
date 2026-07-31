@@ -40,7 +40,20 @@ export class WebhookController {
       isGroup = payload.isGroup === true;
       telefoneFiel = payload.phone.split('@')[0];
       nomeFiel = payload.senderName || 'Fiel Paroquiano';
-      texto = payload.text || '';
+      
+      if (payload.text) {
+        if (typeof payload.text === 'object') {
+          texto = payload.text.message || '';
+        } else {
+          texto = payload.text;
+        }
+      } else if (payload.image) {
+        texto = payload.image.caption || '';
+      } else if (payload.video) {
+        texto = payload.video.caption || '';
+      } else {
+        texto = '';
+      }
     } 
     // 3. Formato desconhecido
     else {
