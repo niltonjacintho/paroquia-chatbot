@@ -458,3 +458,92 @@ tr:last-child td {
 .empty-list-state span {
   font-size: 13px;
 }
+
+/* Estilos de Importação de PDF */
+.btn-pdf-import {
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  border: none;
+  color: white;
+  box-shadow: 0 4px 14px 0 rgba(168, 85, 247, 0.3);
+}
+
+.btn-pdf-import:hover {
+  box-shadow: 0 6px 20px 0 rgba(168, 85, 247, 0.5);
+  transform: translateY(-1px);
+}
+
+.pdf-help-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.pdf-upload-zone {
+  border: 2px dashed var(--border-color);
+  border-radius: 12px;
+  padding: 32px 20px;
+  text-align: center;
+  background: #F8FAFC;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.pdf-upload-zone:hover {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.04);
+}
+
+.pdf-upload-zone.file-selected {
+  border-color: #10B981;
+  background: rgba(16, 185, 129, 0.04);
+}
+
+.upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.upload-icon {
+  font-size: 36px;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.pdf-upload-zone:hover .upload-icon {
+  color: #6366f1;
+}
+
+.pdf-upload-zone.file-selected .upload-icon {
+  color: #10B981;
+}
+
+.upload-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.upload-filename {
+  font-size: 13px;
+  font-weight: 700;
+  color: #10B981;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.upload-filename i {
+  font-size: 16px;
+  color: #EF4444;
+}

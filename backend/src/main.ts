@@ -5,6 +5,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Client } from 'pg';
 import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function ensurePgVector() {
   // Conecta diretamente via pg client para garantir que a extensão exista
@@ -44,8 +45,17 @@ async function bootstrap() {
     transform: true,
   }));
 
+  const config = new DocumentBuilder()
+    .setTitle('Paróquia Santa Bárbara - Chatbot API')
+    .setDescription('Documentação interativa das rotas da API do Chatbot e RAG.')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
   const port = process.env.PORT || 3100;
   await app.listen(port);
   console.log(`🚀 Chatbot Pastoral Backend executando em: http://localhost:${port}`);
+  console.log(`📖 Documentação Swagger disponível em: http://localhost:${port}/api`);
 }
 bootstrap();

@@ -26,6 +26,14 @@ export class ConhecimentoComponent implements OnInit {
   mensagemSucesso = signal<string>('');
   mensagemErro = signal<string>('');
 
+  // Estados de Importação de PDF
+  exibirModalPDF = signal<boolean>(false);
+  processandoPDF = signal<boolean>(false);
+  arquivoSelecionado = signal<File | null>(null);
+  categoriaPDF = signal<string>('Missas');
+  mensagemSucessoPDF = signal<string>('');
+  mensagemErroPDF = signal<string>('');
+
   constructor(private conhecimentoService: ConhecimentoService) {}
 
   ngOnInit() {
@@ -116,6 +124,59 @@ export class ConhecimentoComponent implements OnInit {
         },
       });
     }
+  }
+
+  abrirModalPDF() {
+    this.arquivoSelecionado.set(null);
+    this.categoriaPDF.set('Missas');
+    this.exibirModalPDF.set(true);
+    this.mensagemSucessoPDF.set('');
+    this.mensagemErroPDF.set('');
+  }
+
+  fecharModalPDF() {
+    this.exibirModalPDF.set(false);
+  }
+
+  selecionarArquivo(event: any) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      if (file.type !== 'application/pdf') {
+        this.mensagemErroPDF.set('Por favor, selecione apenas arquivos do tipo PDF.');
+        this.arquivoSelecionado.set(null);
+        return;
+      }
+      this.arquivoSelecionado.set(file);
+      this.mensagemErroPDF.set('');
+    }
+  }
+
+  fazerUploadPDF() {
+    const file = this.arquivoSelecionado();
+    const categoria = this.categoriaPDF();
+    if (!file) {
+      this.mensagemErroPDF.set('Selecione um arquivo PDF para importar.');
+      return;
+    }
+
+    this.processandoPDF.set(true);
+    this.mensagemSucessoPDF.set('');
+    this.mensagemErroPDF.set('');
+
+    this.conhecimentoService.importarPDF(file, categoria).subscribe({
+      next: (res) => {
+        this.processandoPDF.set(false);
+        this.mensagemSucessoPDF.set(`✓ PDF importado com sucesso! Foram criados ${res.count} blocos de conhecimento.`);
+        this.carregarConhecimentos();
+        setTimeout(() => this.fecharModalPDF(), 2500);
+      },
+      error: (err) => {
+        this.processandoPDF.set(false);
+        this.mensagemErroPDF.set('Erro ao processar o PDF. Certifique-se de que o arquivo não está protegido por senha.');
+        console.error(err);
+      },
+    });
   }
 
   deletar(id?: string) {

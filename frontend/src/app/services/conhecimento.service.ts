@@ -36,6 +36,13 @@ export class ConhecimentoService {
     return this.http.put<Conhecimento>(`${this.apiUrl}/${id}`, dados);
   }
 
+  importarPDF(file: File, categoria: string): Observable<{ success: boolean; count: number }> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('categoria', categoria);
+    return this.http.post<{ success: boolean; count: number }>(`${this.apiUrl}/importar-pdf`, formData);
+  }
+
   remover(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

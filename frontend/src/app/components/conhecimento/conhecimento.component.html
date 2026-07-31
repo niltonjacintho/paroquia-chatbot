@@ -5,9 +5,12 @@
       <h1>Base de RAG (Conhecimento)</h1>
       <p>Gerencie as regras, horários e orientações doutrinárias que alimentam as respostas automáticas da IA.</p>
     </div>
-    <div class="header-action">
+    <div class="header-action" style="display: flex; gap: 12px;">
       <button class="btn-new gradient-accent" (click)="abrirNovoForm()">
         <i class="pi pi-plus-circle"></i> Novo Conhecimento
+      </button>
+      <button class="btn-new btn-pdf-import" (click)="abrirModalPDF()">
+        <i class="pi pi-file-pdf"></i> Importar PDF
       </button>
     </div>
   </header>
@@ -87,6 +90,77 @@
         >
           <span *ngIf="!salvando()"><i class="pi pi-save"></i> Salvar e Treinar IA</span>
           <span *ngIf="salvando()"><i class="pi pi-spin pi-spinner"></i> Gerando Embeddings...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF Upload Modal (Glassmorphism Overlay) -->
+  <div class="modal-overlay glass-panel animate-fade-in" *ngIf="exibirModalPDF()">
+    <div class="modal-card card-premium">
+      <div class="modal-header">
+        <h2>Importar Documento PDF para o RAG</h2>
+        <button class="btn-close" (click)="fecharModalPDF()"><i class="pi pi-times"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Alerts -->
+        <div class="alert-success animate-fade-in" *ngIf="mensagemSucessoPDF()">
+          <i class="pi pi-check-circle"></i> {{ mensagemSucessoPDF() }}
+        </div>
+        <div class="alert-error animate-fade-in" *ngIf="mensagemErroPDF()">
+          <i class="pi pi-exclamation-triangle"></i> {{ mensagemErroPDF() }}
+        </div>
+
+        <p class="pdf-help-text">
+          O PDF enviado será extraído e dividido em pequenos blocos de informação de cerca de 1000 caracteres.
+          Cada bloco será indexado com embeddings na categoria selecionada abaixo para alimentar as consultas RAG do seu chatbot.
+        </p>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="categoriaPDF">Categoria de Destino</label>
+            <select id="categoriaPDF" [(ngModel)]="categoriaPDF" [disabled]="processandoPDF()">
+              <option value="Missas">Missas</option>
+              <option value="Confissões">Confissões</option>
+              <option value="Batismo">Batismo</option>
+              <option value="Dízimo">Dízimo</option>
+              <option value="Eventos">Eventos</option>
+              <option value="Sacramentos">Sacramentos</option>
+              <option value="Curadoria">Curadoria (Transbordo)</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group pdf-upload-zone" [class.file-selected]="arquivoSelecionado()">
+          <label for="pdfFile" class="upload-label">
+            <i class="pi pi-cloud-upload upload-icon"></i>
+            <span class="upload-text" *ngIf="!arquivoSelecionado()">Selecione ou arraste o arquivo PDF aqui</span>
+            <span class="upload-filename" *ngIf="arquivoSelecionado()">
+              <i class="pi pi-file-pdf"></i> {{ arquivoSelecionado()?.name }} ({{ (arquivoSelecionado()?.size || 0) / 1024 | number:'1.0-1' }} KB)
+            </span>
+          </label>
+          <input 
+            type="file" 
+            id="pdfFile" 
+            accept="application/pdf"
+            (change)="selecionarArquivo($event)" 
+            [disabled]="processandoPDF()"
+            style="display: none;"
+          />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="fecharModalPDF()" [disabled]="processandoPDF()">Cancelar</button>
+        <button 
+          class="btn-primary gradient-accent" 
+          (click)="fazerUploadPDF()" 
+          [disabled]="processandoPDF() || !arquivoSelecionado()"
+        >
+          <span *ngIf="!processandoPDF()"><i class="pi pi-upload"></i> Processar PDF</span>
+          <span *ngIf="processandoPDF()"><i class="pi pi-spin pi-spinner"></i> Fatiando e Indexando PDF...</span>
         </button>
       </div>
     </div>
