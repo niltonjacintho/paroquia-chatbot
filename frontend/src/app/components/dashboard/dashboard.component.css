@@ -1,0 +1,350 @@
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px;
+}
+
+.header-info h1 {
+  color: white;
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.header-info p {
+  color: #E2E8F0;
+  font-size: 14px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  color: #F87171;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-badge.online {
+  color: #4ADE80;
+}
+
+.status-badge i {
+  font-size: 8px;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.stat-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  font-size: 24px;
+}
+
+.pending-icon {
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+.RAG-icon {
+  background: #DBEAFE;
+  color: #2563EB;
+}
+
+.info-icon {
+  background: #F1F5F9;
+  color: #475569;
+}
+
+.stat-details h3 {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-family: var(--font-title);
+  font-weight: 800;
+  color: var(--primary-color);
+  line-height: 1;
+}
+
+.stat-desc {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.stat-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 4px;
+}
+
+/* Content Layout */
+.dashboard-content-layout {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr;
+  gap: 20px;
+}
+
+@media (max-width: 992px) {
+  .dashboard-content-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-title h2 {
+  font-size: 18px;
+}
+
+.view-all-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-light);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.view-all-link:hover {
+  color: var(--primary-color);
+  transform: translateX(2px);
+}
+
+/* Tickets List */
+.tickets-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ticket-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+}
+
+.ticket-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: white;
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+.ticket-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ticket-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.ticket-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.ticket-phone {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.ticket-question {
+  font-size: 13px;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+}
+
+.btn-action-reply {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 1px solid var(--primary-light);
+  color: var(--primary-light);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-action-reply:hover {
+  background: var(--primary-light);
+  color: white;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.empty-icon {
+  font-size: 48px;
+  color: #10B981;
+  margin-bottom: 16px;
+}
+
+.empty-state p {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.empty-state span {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Quick Actions Panel */
+.quick-actions-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.quick-actions-panel h2 {
+  font-size: 18px;
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-color);
+}
+
+.btn-pending {
+  background: white;
+  color: var(--primary-color);
+}
+
+.btn-pending i {
+  font-size: 24px;
+  color: var(--primary-light);
+}
+
+.btn-knowledge {
+  background: white;
+  color: var(--primary-color);
+}
+
+.btn-knowledge i {
+  font-size: 24px;
+  color: var(--accent-color);
+}
+
+.action-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 54, 93, 0.05);
+  border-color: #DBEAFE;
+}
+
+.bible-verse {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #F8FAFC;
+  border-left: 4px solid var(--accent-color);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bible-verse i {
+  font-size: 16px;
+  color: var(--accent-color);
+}
+
+.bible-verse p {
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.bible-verse span {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  align-self: flex-end;
+}

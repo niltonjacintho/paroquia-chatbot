@@ -1,0 +1,113 @@
+<div class="transbordo-wrapper animate-fade-in">
+  <!-- Left Side: Queue List -->
+  <div class="queue-panel card-premium">
+    <div class="queue-header">
+      <h2>Fila de Transbordo</h2>
+      <span class="badge-count">{{ atendimentos().length }} pendentes</span>
+    </div>
+
+    <div class="queue-list" *ngIf="atendimentos().length > 0; else emptyQueue">
+      <div 
+        class="queue-item" 
+        *ngFor="let item of atendimentos()"
+        [class.active]="atendimentoSelecionado()?.id === item.id"
+        (click)="selecionarAtendimento(item)"
+      >
+        <div class="item-avatar">
+          <i class="pi pi-user"></i>
+        </div>
+        <div class="item-details">
+          <div class="item-meta">
+            <span class="item-name">{{ item.nomeFiel || 'Fiel Paroquiano' }}</span>
+            <span class="item-time">{{ item.createdAt | date:'HH:mm' }}</span>
+          </div>
+          <p class="item-preview">"{{ item.pergunta }}"</p>
+        </div>
+      </div>
+    </div>
+    <ng-template #emptyQueue>
+      <div class="empty-queue-state">
+        <i class="pi pi-check-circle"></i>
+        <p>Tudo em dia!</p>
+        <span>Nenhuma dúvida pendente.</span>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Right Side: Active Workspace -->
+  <div class="workspace-panel card-premium">
+    <div class="workspace-content" *ngIf="atendimentoSelecionado() as active; else noSelection">
+      <!-- Active Header -->
+      <div class="workspace-header">
+        <div class="active-avatar">
+          <i class="pi pi-user"></i>
+        </div>
+        <div class="active-info">
+          <h3>{{ active.nomeFiel || 'Fiel Paroquiano' }}</h3>
+          <span>WhatsApp: {{ active.telefoneFiel }}</span>
+        </div>
+        <div class="workspace-actions">
+          <button class="btn-ignore" (click)="ignorarAtendimento()" [disabled]="enviando()">
+            <i class="pi pi-trash"></i> Ignorar
+          </button>
+        </div>
+      </div>
+
+      <!-- Chat History (Fiel Question) -->
+      <div class="chat-container">
+        <div class="message-group">
+          <div class="msg-bubble msg-received">
+            <div class="msg-sender">Pergunta do Fiel:</div>
+            <p>{{ active.pergunta }}</p>
+            <span class="msg-time">{{ active.createdAt | date:'shortTime' }}</span>
+          </div>
+        </div>
+
+        <!-- System Alerts -->
+        <div class="alert-success animate-fade-in" *ngIf="mensagemSucesso()">
+          <i class="pi pi-check-circle"></i> {{ mensagemSucesso() }}
+        </div>
+        <div class="alert-error animate-fade-in" *ngIf="mensagemErro()">
+          <i class="pi pi-exclamation-triangle"></i> {{ mensagemErro() }}
+        </div>
+      </div>
+
+      <!-- Reply Section (Curadoria Form) -->
+      <div class="reply-section">
+        <div class="training-info">
+          <i class="pi pi-info-circle"></i>
+          <span>Ao responder, a mensagem será enviada ao fiel e cadastrada automaticamente como regra RAG para treinar a IA.</span>
+        </div>
+        
+        <div class="input-container">
+          <textarea 
+            [(ngModel)]="respostaTexto" 
+            placeholder="Digite a resposta pastoral oficial aqui..."
+            rows="5"
+            [disabled]="enviando()"
+          ></textarea>
+        </div>
+
+        <div class="submit-container">
+          <button 
+            class="btn-submit gradient-accent" 
+            (click)="enviarResposta()" 
+            [disabled]="!respostaTexto().trim() || enviando()"
+          >
+            <span *ngIf="!enviando()"><i class="pi pi-send"></i> Enviar Resposta e Treinar IA</span>
+            <span *ngIf="enviando()"><i class="pi pi-spin pi-spinner"></i> Processando e Treinando...</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Active Ticket Selected -->
+    <ng-template #noSelection>
+      <div class="no-selection-state">
+        <i class="pi pi-comments empty-chat-icon"></i>
+        <h3>Nenhum Atendimento Selecionado</h3>
+        <p>Selecione um paroquiano na fila lateral para responder e alimentar a base de conhecimento da paróquia.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

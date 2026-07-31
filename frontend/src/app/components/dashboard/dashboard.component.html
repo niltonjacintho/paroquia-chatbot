@@ -1,0 +1,112 @@
+<div class="dashboard-wrapper animate-fade-in">
+  <!-- Header -->
+  <header class="dashboard-header card-premium gradient-header">
+    <div class="header-info">
+      <h1>Bem-vindo ao Atendimento Pastoral</h1>
+      <p>Gerencie o transbordo da secretaria e atualize a base de conhecimento RAG da Paróquia Santa Bárbara.</p>
+    </div>
+    <div class="header-status">
+      <span class="status-badge" [class.online]="statusSistema() === 'online'">
+        <i class="pi pi-circle-fill"></i>
+        NestJS API: {{ statusSistema() === 'online' ? 'Conectada' : 'Desconectada' }}
+      </span>
+    </div>
+  </header>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <!-- Stat 1 -->
+    <div class="card-premium stat-card">
+      <div class="stat-icon-wrapper pending-icon">
+        <i class="pi pi-comments"></i>
+      </div>
+      <div class="stat-details">
+        <h3>Dúvidas Pendentes</h3>
+        <p class="stat-value">{{ totalPendentes() }}</p>
+        <span class="stat-meta">Aguardando secretaria</span>
+      </div>
+    </div>
+
+    <!-- Stat 2 -->
+    <div class="card-premium stat-card">
+      <div class="stat-icon-wrapper RAG-icon">
+        <i class="pi pi-database"></i>
+      </div>
+      <div class="stat-details">
+        <h3>Base de RAG</h3>
+        <p class="stat-value">{{ totalConhecimentos() }}</p>
+        <span class="stat-meta">Regras de treinamento ativas</span>
+      </div>
+    </div>
+
+    <!-- Stat 3 -->
+    <div class="card-premium stat-card">
+      <div class="stat-icon-wrapper info-icon">
+        <i class="pi pi-compass"></i>
+      </div>
+      <div class="stat-details">
+        <h3>Paróquia Santa Bárbara</h3>
+        <p class="stat-desc">Diocese e Secretaria Integradas</p>
+        <span class="stat-meta">Atendimento 24/7 RAG</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="dashboard-content-layout">
+    <!-- Fila de transbordo rápido -->
+    <div class="card-premium transbordo-quick-list">
+      <div class="section-title">
+        <h2>Fila de Atendimento Recente</h2>
+        <a routerLink="/transbordo" class="view-all-link">Ver todos <i class="pi pi-arrow-right"></i></a>
+      </div>
+
+      <div class="tickets-container" *ngIf="ultimosPendentes().length > 0; else noTickets">
+        <div class="ticket-row animate-fade-in" *ngFor="let ticket of ultimosPendentes()">
+          <div class="ticket-avatar">
+            <i class="pi pi-user"></i>
+          </div>
+          <div class="ticket-info">
+            <div class="ticket-meta">
+              <span class="ticket-name">{{ ticket.nomeFiel || 'Fiel Paroquiano' }}</span>
+              <span class="ticket-phone">{{ ticket.telefoneFiel }}</span>
+            </div>
+            <p class="ticket-question">"{{ ticket.pergunta }}"</p>
+          </div>
+          <div class="ticket-action">
+            <a [routerLink]="['/transbordo']" class="btn-action-reply">
+              <i class="pi pi-reply"></i> Responder
+            </a>
+          </div>
+        </div>
+      </div>
+      <ng-template #noTickets>
+        <div class="empty-state">
+          <i class="pi pi-check-circle empty-icon"></i>
+          <p>Nenhuma dúvida pendente de transbordo!</p>
+          <span>A IA está respondendo a todos os fiéis com precisão.</span>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Atalhos Rápidos -->
+    <div class="card-premium quick-actions-panel">
+      <h2>Ações Rápidas</h2>
+      <div class="actions-grid">
+        <a routerLink="/transbordo" class="action-card btn-pending">
+          <i class="pi pi-comment"></i>
+          <span>Responder Fila</span>
+        </a>
+        <a routerLink="/conhecimento" class="action-card btn-knowledge">
+          <i class="pi pi-plus-circle"></i>
+          <span>Novo Conhecimento</span>
+        </a>
+      </div>
+      <div class="bible-verse">
+        <i class="pi pi-bookmark"></i>
+        <p>"Instrui o jovem no caminho em que deve andar; e até quando envelhecer não se desviará dele."</p>
+        <span>Provérbios 22:6</span>
+      </div>
+    </div>
+  </div>
+</div>

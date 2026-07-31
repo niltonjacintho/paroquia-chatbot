@@ -1,0 +1,460 @@
+.conhecimento-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+.conhecimento-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .conhecimento-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .header-action {
+    width: 100%;
+  }
+  .btn-new {
+    width: 100%;
+  }
+}
+
+.header-info h1 {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.header-info p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.btn-new {
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.btn-new:hover {
+  transform: translateY(-1px);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  width: 600px;
+  max-width: 95%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+
+.modal-header h2 {
+  font-size: 18px;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.btn-close:hover {
+  background: var(--bg-color);
+  color: var(--text-main);
+}
+
+/* Form Styles */
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.flex-row {
+  flex-direction: row;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.gap-8 {
+  gap: 8px;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.form-group .checkbox-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  outline: none;
+  transition: all 0.2s ease;
+  background: #F8FAFC;
+}
+
+.form-group input[type="text"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-light);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+}
+
+.form-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+@media (max-width: 576px) {
+  .form-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 16px;
+}
+
+.btn-primary {
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  border: 1px solid var(--border-color);
+  background: white;
+  color: var(--text-main);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--bg-color);
+}
+
+/* List Card */
+.conhecimento-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.list-header h2 {
+  font-size: 16px;
+}
+
+.badge-total {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-color);
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+}
+
+/* Table */
+.table-container {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th {
+  background: #F8FAFC;
+  padding: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+td {
+  padding: 16px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.item-title {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.item-summary {
+  color: var(--text-muted);
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Category Badges */
+.category-badge {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.category-badge[data-category="Missas"] {
+  background: #DBEAFE;
+  color: #1E40AF;
+}
+
+.category-badge[data-category="Confissões"] {
+  background: #F3E8FF;
+  color: #6B21A8;
+}
+
+.category-badge[data-category="Batismo"] {
+  background: #CCFBF1;
+  color: #0F766E;
+}
+
+.category-badge[data-category="Dízimo"] {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.category-badge[data-category="Eventos"] {
+  background: #FFE4E6;
+  color: #9F1239;
+}
+
+.category-badge[data-category="Sacramentos"] {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.category-badge[data-category="Curadoria"] {
+  background: #FFF3E0;
+  color: #E65100;
+}
+
+.category-badge[data-category="Outros"] {
+  background: #F1F5F9;
+  color: #475569;
+}
+
+/* Status Indicator */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #94A3B8;
+}
+
+.status-indicator::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #CBD5E1;
+}
+
+.status-indicator.active {
+  color: #10B981;
+}
+
+.status-indicator.active::before {
+  background: #10B981;
+}
+
+/* Actions */
+.actions-wrapper {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.btn-action-edit,
+.btn-action-delete {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-action-edit {
+  color: var(--primary-light);
+}
+
+.btn-action-edit:hover {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+}
+
+.btn-action-delete {
+  color: #EF4444;
+}
+
+.btn-action-delete:hover {
+  background: #FEE2E2;
+  border-color: #FCA5A5;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Empty State */
+.empty-list-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 64px 32px;
+  color: var(--text-muted);
+}
+
+.empty-list-state i {
+  font-size: 48px;
+  color: #CBD5E1;
+  margin-bottom: 16px;
+}
+
+.empty-list-state p {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.empty-list-state span {
+  font-size: 13px;
+}
