@@ -27,13 +27,15 @@ if (!geminiKey || geminiKey === 'YOUR_GEMINI_API_KEY') {
   process.exit(1);
 }
 
-const dbConfig = {
-  host: envConfig['DB_HOST'] || 'localhost',
-  port: parseInt(envConfig['DB_PORT'] || '5432'),
-  user: envConfig['DB_USERNAME'] || 'admin',
-  password: envConfig['DB_PASSWORD'] || '',
-  database: envConfig['DB_DATABASE'] || 'postgres_db',
-};
+const dbConfig = envConfig['DATABASE_URL']
+  ? { connectionString: envConfig['DATABASE_URL'], ssl: { rejectUnauthorized: false } }
+  : {
+      host: envConfig['DB_HOST'] || 'localhost',
+      port: parseInt(envConfig['DB_PORT'] || '5432'),
+      user: envConfig['DB_USERNAME'] || 'admin',
+      password: envConfig['DB_PASSWORD'] || '',
+      database: envConfig['DB_DATABASE'] || 'postgres_db',
+    };
 
 const titulo = 'Horário das Missas';
 const conteudo = 'O horário da missa na Paróquia Santa Bárbara é aos domingos às 19:00h e às quartas-feiras às 19:30h.';

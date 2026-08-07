@@ -9,13 +9,18 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function ensurePgVector() {
   // Conecta diretamente via pg client para garantir que a extensão exista
-  const client = new Client({
-    host: process.env.DB_HOST || 'localhost',
-    port: Number(process.env.DB_PORT || 5432),
-    user: process.env.DB_USERNAME || 'admin',
-    password: process.env.DB_PASSWORD ? process.env.DB_PASSWORD.replace(/"/g, '') : '', // remove quotes if present
-    database: process.env.DB_DATABASE || 'postgres_db',
-  });
+  const connectionString = process.env.DATABASE_URL;
+  const config: any = connectionString
+    ? { connectionString, ssl: { rejectUnauthorized: false } }
+    : {
+        host: process.env.DB_HOST || 'localhost',
+        port: Number(process.env.DB_PORT || 5432),
+        user: process.env.DB_USERNAME || 'admin',
+        password: process.env.DB_PASSWORD ? process.env.DB_PASSWORD.replace(/"/g, '') : '', // remove quotes if present
+        database: process.env.DB_DATABASE || 'postgres_db',
+      };
+
+  const client = new Client(config);
 
   try {
     await client.connect();

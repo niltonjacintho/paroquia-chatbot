@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Subject, Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class SocketService implements OnDestroy {
 
   constructor() {
     // Conecta ao backend NestJS (porta 3100 por padrão)
-    this.socket = io('http://localhost:3100');
+    this.socket = io(environment.apiUrl);
 
     this.socket.on('connect', () => {
       console.log('✅ Conectado ao servidor WebSocket da Paróquia.');

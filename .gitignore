@@ -43,6 +43,8 @@ lerna-debug.log*
 
 # Environment variables
 .env
+.env prd
+.env.prd
 .env.production
 .env.development
 .env.local
@@ -50,6 +52,9 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 *.env
+*.env*
+.env*
+.env prd*
 
 # Runtime data
 pids

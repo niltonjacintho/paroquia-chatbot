@@ -97,3 +97,18 @@ OPENAI_API_KEY=sk-proj-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 WHATSAPP_API_URL=https://api.z-api.io/instances/MINHA_INSTANCIA/token/MEU_TOKEN
 WHATSAPP_TOKEN=TOKEN_SEGURANCA_Z_API
 ```
+
+---
+
+## 🌐 5. Implantação em Nuvem (Cloud Deploy)
+
+Para implantar toda a solução em ambiente de nuvem, incluindo o frontend no **Netlify**, o backend no **Render** e o banco de dados PostgreSQL com `pgvector` no **Supabase**, consulte o guia detalhado completo criado em:
+
+👉 **[Guia de Deploy (read.mr)](file:///home/nilton-cesar/projetos/whatsapp/read.mr)**
+
+O guia contém instruções passo a passo para:
+- Criação e configuração do banco de dados gratuito com suporte a vetores no Supabase.
+- Deploy automático do backend NestJS no Render integrado ao repositório GitHub.
+- Deploy do frontend Angular no Netlify utilizando as variáveis de ambiente necessárias (`API_URL` e `PRODUCTION`).
+- Configuração de webhooks do WhatsApp para a URL de produção.
+
